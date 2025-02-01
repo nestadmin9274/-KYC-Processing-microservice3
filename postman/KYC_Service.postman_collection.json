@@ -1,0 +1,106 @@
+{
+  "info": {
+    "name": "KYC Service API",
+    "description": "Collection for testing KYC microservice endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Submit KYC Document",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "documentType",
+              "value": "AADHAAR",
+              "type": "text"
+            },
+            {
+              "key": "documentNumber",
+              "value": "1234-5678-9012",
+              "type": "text"
+            },
+            {
+              "key": "document",
+              "type": "file",
+              "src": []
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/kyc/submit",
+          "host": ["{{base_url}}"],
+          "path": ["api", "kyc", "submit"]
+        }
+      }
+    },
+    {
+      "name": "Get KYC Status",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/kyc/status",
+          "host": ["{{base_url}}"],
+          "path": ["api", "kyc", "status"]
+        }
+      }
+    },
+    {
+      "name": "Verify KYC Document",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"documentId\": \"{{document_id}}\",\n  \"status\": \"VERIFIED\",\n  \"notes\": \"All documents verified successfully\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/kyc/verify",
+          "host": ["{{base_url}}"],
+          "path": ["api", "kyc", "verify"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "jwt_token",
+      "value": "your_jwt_token_here"
+    },
+    {
+      "key": "document_id",
+      "value": "document_uuid_here"
+    }
+  ]
+}
