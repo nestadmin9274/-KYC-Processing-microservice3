@@ -102,5 +102,11 @@
       "key": "document_id",
       "value": "document_uuid_here"
     }
-  ]
+  ],
+  "dependencies": {
+    "jsonwebtoken": "^9.0.0",
+    "speakeasy": "^2.0.0",
+    "crypto": "^1.0.1",
+    "express-rate-limit": "^6.7.0"
+  }
 }
