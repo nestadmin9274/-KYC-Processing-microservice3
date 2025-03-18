@@ -25,6 +25,8 @@ const {
     kycAmlCompliance 
 } = require('./security/middleware/complianceMiddleware');
 
+const healthRoute = require("./routes/health.routes");
+
 // Middleware
 app.use(cors(corsConfig));
 app.use(express.json());
@@ -33,6 +35,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 // Routes
 app.use('/api/kyc', kycRoutes);
 app.use('/api/security', securityRoutes);
+app.use('/health', healthRoute);
 
 // Health Check Route
 app.get('/', (req, res) => {
@@ -67,18 +70,6 @@ async function startServer() {
       console.log(`✅ Server running on http://localhost:${PORT}`);
     });
     
-
-    app.get('/health', (req, res) => {
-      res.status(200).json({ message: 'Server is healthy' });
-    });
-
-      // Send an HTTP request to the server itself
-      try {
-        const response = await axios.get(`http://localhost:${PORT}/health`);
-        console.log('✅ Server health check:', response.data.message);
-      } catch (error) {
-        console.error('⚠️ Unable to reach localhost:', error.message);
-      }
 
       // Send a desktop notification
       notifier.notify({
