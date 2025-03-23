@@ -11,15 +11,22 @@ const KycDocument = sequelize.define('KycDocument', {
     type: DataTypes.UUID,
     allowNull: false
   },
-  documentType: {
-    type: DataTypes.ENUM('AADHAAR', 'PAN', 'PASSPORT'),
+  documentType: { // Multiple document types
+    type: DataTypes.ENUM(
+      'SELFIE',
+      'STUDENT_ID',
+      'PAY_SLIP',
+      'GSTIN_CERTIFICATE',
+      'BANK_STATEMENT',
+      'PAN_FRONT',
+      'PAN_BACK'
+    ),
     allowNull: false
   },
-  documentNumber: {
-    type: DataTypes.STRING,
-    allowNull: false
+  documentNumber: { // For PAN, GSTIN, etc.
+    type: DataTypes.STRING
   },
-  documentPath: {
+  documentPath: { // S3 Path or File URL
     type: DataTypes.STRING,
     allowNull: false
   },
