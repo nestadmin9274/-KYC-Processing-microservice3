@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
     console.log("HEALTH CHECK BEGIN");
 
     let databaseStatus = "DOWN";
-    let hypervergeAPI = "DOWN";
+    // let hypervergeAPI = "DOWN";
 
     try {
         // 1. Database Check
@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
  
 
     // Determine overall status
-    const overallStatus = [databaseStatus, hypervergeAPI].includes("DOWN")
+    const overallStatus = [databaseStatus].includes("DOWN")
         ? "DOWN"
         : "UP";
 
@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
         status: overallStatus,
         uptime: process.uptime(),
         database: databaseStatus,
-        hypervergeAPI,
+        // hypervergeAPI,
         timestamp: new Date().toISOString(),
     });
 });
