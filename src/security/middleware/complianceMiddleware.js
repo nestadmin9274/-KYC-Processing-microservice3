@@ -40,15 +40,17 @@ const complianceMiddleware = {
             // Log access for audit trail
             if (monitoring.auditTrail.enabled) {
                 await AuditLog.create({
-                    userId: req.user?.id || null,  // Handle null case
+                    user_id: req.user?.id || null,
                     action: req.method,
-                    details: {
+                    request_details: {
                         path: req.path,
                         body: req.method !== 'GET' ? req.body : undefined,
                         params: Object.keys(req.params).length ? req.params : undefined
                     },
-                    ipAddress: req.ip || 'unknown',
-                    userAgent: req.headers['user-agent']
+                    ip_address: req.ip || 'unknown',
+                    user_agent: req.headers['user-agent'],
+                    severity: 'INFO',
+                    timestamp: new Date()
                 });
             }
             

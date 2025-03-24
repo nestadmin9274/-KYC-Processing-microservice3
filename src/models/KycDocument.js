@@ -8,10 +8,10 @@ const KycDocument = sequelize.define('KycDocument', {
     primaryKey: true
   },
   userId: {
-    type: DataTypes.UUID,
+    type: DataTypes.STRING,
     allowNull: false
   },
-  documentType: { // Multiple document types
+  documentType: {
     type: DataTypes.ENUM(
       'SELFIE',
       'STUDENT_ID',
@@ -19,14 +19,17 @@ const KycDocument = sequelize.define('KycDocument', {
       'GSTIN_CERTIFICATE',
       'BANK_STATEMENT',
       'PAN_FRONT',
-      'PAN_BACK'
+      'PAN_BACK',
+      'AADHAR_FRONT',
+      'AADHAR_BACK',
+      'PASSPORT'
     ),
     allowNull: false
   },
-  documentNumber: { // For PAN, GSTIN, etc.
+  documentNumber: {
     type: DataTypes.STRING
   },
-  documentPath: { // S3 Path or File URL
+  documentPath: {
     type: DataTypes.STRING,
     allowNull: false
   },
@@ -40,6 +43,20 @@ const KycDocument = sequelize.define('KycDocument', {
   verifiedAt: {
     type: DataTypes.DATE
   }
+}, {
+  tableName: 'KycDocuments',
+  timestamps: true,
+  indexes: [
+    {
+      fields: ['userId']
+    },
+    {
+      fields: ['documentType']
+    },
+    {
+      fields: ['verificationStatus']
+    }
+  ]
 });
 
 module.exports = KycDocument;

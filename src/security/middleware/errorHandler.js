@@ -7,15 +7,17 @@ const errorHandler = async (err, req, res, next) => {
     // Log security-related errors to audit log
     if (err.name === 'UnauthorizedError' || err.name === 'ForbiddenError') {
         await AuditLog.create({
-            userId: req.user?.id || null,
+            user_id: req.user?.id || null,
             action: 'SECURITY_ERROR',
-            details: {
+            request_details: {
                 error: err.message,
                 path: req.path,
                 method: req.method
             },
-            ipAddress: req.ip,
-            userAgent: req.headers['user-agent']
+            ip_address: req.ip,
+            user_agent: req.headers['user-agent'],
+            severity: 'CRITICAL',
+            timestamp: new Date()
         });
     }
 

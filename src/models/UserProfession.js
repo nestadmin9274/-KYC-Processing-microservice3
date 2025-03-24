@@ -8,7 +8,7 @@ const UserProfession = sequelize.define('UserProfession', {
     primaryKey: true
   },
   userId: {
-    type: DataTypes.UUID,
+    type: DataTypes.STRING,
     allowNull: false
   },
   profession: {
@@ -35,6 +35,17 @@ const UserProfession = sequelize.define('UserProfession', {
     type: DataTypes.ENUM('BELOW_1_LAKH', '1-5_LAKH', '4-10_LAKH', 'ABOVE_10_LAKH'),
     allowNull: false
   }
+}, {
+  tableName: 'UserProfessions',
+  timestamps: true,
+  indexes: [
+    {
+      fields: ['userId']
+    },
+    {
+      fields: ['profession']
+    }
+  ]
 });
 
 module.exports = UserProfession;
